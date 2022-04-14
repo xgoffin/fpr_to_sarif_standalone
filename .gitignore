@@ -1,0 +1,4 @@
+*.sarif
+*.fpr
+*.fvdl
+*.exe
