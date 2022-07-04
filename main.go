@@ -26,17 +26,16 @@ func main() {
 	if len(os.Args[2:]) == 3 {
 		fmt.Println("SSC information found, attempting to run with audit data")
 		sys = fortify.NewSystemInstance(os.Args[2], "/api/v1", os.Args[3], time.Minute*15)
-		project := models.Project{ID: 1} // Remove project-related info after last Piper PR (https://github.com/SAP/jenkins-library/pull/3866) is merged
 		projectVersionID, _ := strconv.Atoi(os.Args[4])
 		projectVersion := models.ProjectVersion{ID: int64(projectVersionID)}
 		filterSet, _ := sys.GetFilterSetOfProjectVersionByTitle(projectVersion.ID, "SAP")
 		fmt.Println("Running converter...")
-		sarif, err = fortify.ConvertFprToSarif(sys, &project, &projectVersion, fprFileName, filterSet)
+		sarif, err = fortify.ConvertFprToSarif(sys, &projectVersion, fprFileName, filterSet)
 	} else {
 		fmt.Println("Not enough SSC information passed, running without audit data")
 		fmt.Println("Syntax: ./converter result.fpr ServerURL AuthToken ProjectVersionID")
 		fmt.Println("Running converter...")
-		sarif, err = fortify.ConvertFprToSarif(sys, nil, nil, fprFileName, nil)
+		sarif, err = fortify.ConvertFprToSarif(sys, nil, fprFileName, nil)
 	}
 	if err != nil {
 		fmt.Println(err)

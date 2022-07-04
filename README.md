@@ -25,7 +25,9 @@ File can be found under `fortify/result.sarif`
 Seems to give faster results
 
 `go build -o converter`
+
 `./converter result.fpr`
+
 `./converter result.fpr https://fortify-stage.tools.sap/ssc 11111111111111111111111111111111111111111111111 75485`
 
 ## Caveat
